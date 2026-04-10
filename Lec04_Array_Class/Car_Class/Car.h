@@ -1,27 +1,38 @@
 #pragma once
-#include <iostream>
-
-using namespace std;
+#include <cstdio>
+#include <cstring>
 
 class Car {
-public:
+
+protected:
+
     int speed;
+    char name[40];
 
-    // 생성자
-    Car(int s = 0);
-
-    // 출력
-    void print();
-};
-
-// 파생 클래스
-class SportsCar : public Car {
 public:
-    int turbo;
 
-    // 생성자
-    SportsCar(int s = 0, int t = 0);
+    int gear;
 
-    // 출력 (오버라이딩 느낌)
-    void print();
+    Car() {}
+
+    ~Car() {}
+
+    Car(int s, char* n, int g)
+        : speed(s), gear(g) {
+        strcpy_s(name, n);
+    }
+
+    void changeGear(int g = 4) {
+        gear = g;
+    }
+
+    void speedUp() {
+        speed += 5;
+    }
+
+    void display() {
+        printf("[%s] : 기어=%d단 속도=%dkmph\n", name, gear, speed);
+    }
+
+    void whereAmI() { printf("객체 주소 = %x\n", this); }
 };

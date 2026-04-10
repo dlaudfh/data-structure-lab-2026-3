@@ -1,72 +1,47 @@
-#include <iostream>
 #include "Polynomial.h"
 
-using namespace std;
+void Polynomial::read() {
+    printf("다항식의 최고 차수를 입력하시오: ");
+    scanf_s("%d", &degree);
 
-// 생성자
-Polynomial::Polynomial() {
-    degree = 0;
-    for (int i = 0; i < MAX_DEGREE; i++)
-        coef[i] = 0;
-}
-
-// 다항식 설정
-void Polynomial::setPolynomial(int deg, double c[]) {
-    degree = deg;
-    for (int i = 0; i <= deg; i++) {
-        coef[i] = c[i];
+    printf("각 항의 계수를 입력하시오 (총 %d개): ", degree + 1);
+    for (int i = 0; i <= degree; i++) {
+        scanf_s("%f", &coef[i]);
     }
 }
 
-// 덧셈
-Polynomial Polynomial::add(const Polynomial& other) {
-    Polynomial result;
-    result.degree = (degree > other.degree) ? degree : other.degree;
+void Polynomial::display(char* str) {
+    printf("\t%s", str);
 
-    for (int i = 0; i <= result.degree; i++) {
-        result.coef[i] = coef[i] + other.coef[i];
+    for (int i = 0; i < degree; i++) {
+        printf("%5.1f x^%d + ", coef[i], degree - i);
     }
-
-    return result;
+    printf("%4.1f\n", coef[degree]);
 }
 
-// 출력
-void Polynomial::print() {
-    for (int i = degree; i >= 0; i--) {
-        if (coef[i] == 0) continue;
+void Polynomial::add(Polynomial a, Polynomial b) {
+    if (a.degree > b.degree) {
+        *this = a;
 
-        if (i != degree && coef[i] > 0)
-            printf(" + ");
-
-        if (i == 0)
-            printf("%.2f", coef[i]);
-        else if (i == 1)
-            printf("%.2fx", coef[i]);
-        else
-            printf("%.2fx^%d", coef[i], i);
+        for (int i = 0; i <= b.degree; i++) {
+            coef[i + (degree - b.degree)] += b.coef[i];
+        }
     }
-    printf("\n");
+    else {
+        *this = b;
+
+        for (int i = 0; i <= a.degree; i++) {
+            coef[i + (degree - a.degree)] += a.coef[i];
+        }
+    }
 }
 
-int main() {
-    Polynomial A, B;
+bool Polynomial::isZero() {
+    return degree == 0;
+}
 
-    double a_coef[] = { 1, 2, 3 };   // 1 + 2x + 3x^2
-    double b_coef[] = { 2, 1, 4 };   // 2 + x + 4x^2
-
-    A.setPolynomial(2, a_coef);
-    B.setPolynomial(2, b_coef);
-
-    printf("A = ");
-    A.print();
-
-    printf("B = ");
-    B.print();
-
-    Polynomial C = A.add(B);
-
-    printf("A + B = ");
-    C.print();
-
-    return 0;
+void Polynomial::negate() {
+    for (int i = 0; i <= degree; i++) {
+        coef[i] = -coef[i];
+    }
 }

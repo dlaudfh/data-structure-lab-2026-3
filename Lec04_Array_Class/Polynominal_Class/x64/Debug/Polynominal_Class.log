@@ -1,2 +1,5 @@
 ﻿  Polynomial.cpp
+  Polynomialtest.cpp
+C:\Users\이명로\Documents\data-structure-lab\data-structure-lab-2026-3\Lec04_Array_Class\Polynominal_Class\Polynomialtest.cpp(3,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  코드를 생성하고 있습니다...
   Polynominal_Class.vcxproj -> C:\Users\이명로\Documents\data-structure-lab\data-structure-lab-2026-3\Lec04_Array_Class\x64\Debug\Polynominal_Class.exe

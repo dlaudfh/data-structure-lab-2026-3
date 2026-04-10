@@ -1,24 +1,18 @@
 #pragma once
-#include <iostream>
+#include <cstdio>
 
-using namespace std;
-
-#define MAX_DEGREE 10  // 최대 차수
+#define MAX_DEGREE 80
 
 class Polynomial {
+    int degree;
+    float coef[MAX_DEGREE];
+
 public:
-    int degree;                 // 최고 차수
-    double coef[MAX_DEGREE];    // 계수 배열
+    Polynomial() { degree = 0; }
 
-    // 생성자
-    Polynomial();
-
-    // 다항식 설정
-    void setPolynomial(int deg, double c[]);
-
-    // 덧셈
-    Polynomial add(const Polynomial& other);
-
-    // 출력
-    void print();
+    void read();
+    void display(char* str = (char*)"Poly = ");
+    void add(Polynomial a, Polynomial b);
+    bool isZero();
+    void negate();
 };

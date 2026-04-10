@@ -1,39 +1,42 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
 #include <cstdio>
+#include <cstring>
 #include "Car.h"
+#include "SportsCar.h"
 
-using namespace std;
+int main()
+{
+    int speed, gear;
+    char name[40];
+    char turboStr[10];   // on/off 저장
 
-// Car 생성자
-Car::Car(int s) {
-    speed = s;
-}
+    printf("Car 정보 입력 (speed name gear): ");
+    scanf_s("%d %s %d", &speed, name, 40, &gear);
+    Car c1(speed, name, gear);
 
-// Car 출력
-void Car::print() {
-    printf("Speed: %d\n", speed);
-}
+    printf("SportsCar 정보 입력 (speed name gear turbo(on/off)): ");
+    scanf_s("%d %s %d %s", &speed, name, 40, &gear, turboStr, 10);
 
-// SportsCar 생성자
-SportsCar::SportsCar(int s, int t) : Car(s) {
-    turbo = t;
-}
+    SportsCar c2(speed, name, gear);
 
-// SportsCar 출력
-void SportsCar::print() {
-    printf("Speed: %d, Turbo: %d\n", speed, turbo);
-}
+    int turbo = 0;
+    if (strcmp(turboStr, "on") == 0) {
+        turbo = 1;
+    }
+    else if (strcmp(turboStr, "off") == 0) {
+        turbo = 0;
+    }
+    else {
+        printf("입력 오류: on 또는 off만 입력하세요\n");
+        return 0;
+    }
 
-int main() {
-    Car c(100);
-    SportsCar sc(200, 1);
+    c2.setTurbo(turbo);
 
-    printf("Car -> ");
-    c.print();
+    c1.speedUp();
+    c2.speedUp();
 
-    printf("SportsCar -> ");
-    sc.print();
+    c1.display();
+    c2.display();
 
     return 0;
 }

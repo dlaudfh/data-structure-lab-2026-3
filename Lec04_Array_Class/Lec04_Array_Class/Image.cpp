@@ -1,48 +1,21 @@
-#include <iostream>
 #include "Image.h"
 
-// 데이터 입력 (PDF 스타일)
-void Image::read() {
-    printf("이미지 데이터를 입력하세요 (%d x %d):\n", HEIGHT, WIDTH);
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
-            scanf_s("%d", &data[i][j]);
-        }
-    }
-}
-
-// 최대값 찾기
-int Image::findMaxPixel() {
-    int maxVal = data[0][0];
-
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
-            if (data[i][j] > maxVal) {
-                maxVal = data[i][j];
-            }
-        }
-    }
-
-    return maxVal;
-}
-
-// 출력 (선택)
-void Image::print() {
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
-            printf("%4d", data[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-// main (PDF 스타일)
 int main() {
-    Image img;
+    int h, w;
+    int image[MAX_SIZE][MAX_SIZE];
 
-    img.read();  // 데이터 입력
+    cout << "이미지의 세로(행)와 가로(열) 크기를 입력하세요 : ";
+    cin >> h >> w;
 
-    printf("최대 밝기 값: %d\n", img.findMaxPixel());
+    cout << "화소 밝기 값을 입력하세요 (" << h << "x" << w << ") :\n";
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            cin >> image[i][j];
+        }
+    }
+
+    int result = findMaxPixel(image, h, w);
+    cout << "최대 화소 밝기 : " << result << endl;
 
     return 0;
 }
